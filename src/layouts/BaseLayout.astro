@@ -1,0 +1,132 @@
+---
+import '@fontsource-variable/big-shoulders-display/index.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/700.css';
+import '../styles/global.css';
+
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { useTranslations, alternatePath, type Lang } from '../i18n/utils';
+import { withBase } from '../lib/utils';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  /** Suppress the global footer (e.g. custom contact section already present). */
+  noFooter?: boolean;
+  /**
+   * Explicit per-locale URLs for the current page. Needed when locales don't
+   * share a slug (e.g. blog posts). Falls back to a naive locale-segment swap.
+   */
+  langAlternates?: Record<Lang, string>;
+}
+
+const {
+  lang,
+  title,
+  description,
+  ogImage = '/images/luz-portrait.webp',
+  noFooter = false,
+  langAlternates,
+} = Astro.props;
+
+const t = useTranslations(lang);
+const site = Astro.site ?? new URL('https://luzmulinaris.github.io/portfolio/');
+
+const pageTitle = title ? `${title} — Luz Mulinaris` : t('site.title');
+const desc = description ?? t('site.description');
+const canonical = new URL(Astro.url.pathname, site).href;
+const ogImageUrl = new URL(withBase(ogImage), site).href;
+
+const altMap: Record<Lang, string> = langAlternates ?? {
+  en: alternatePath(Astro.url, 'en'),
+  es: alternatePath(Astro.url, 'es'),
+};
+const alternates = (['en', 'es'] as Lang[]).map((code) => ({
+  code,
+  href: new URL(altMap[code], site).href,
+}));
+---
+
+<!doctype html>
+<html lang={lang} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+
+    {alternates.map((a) => <link rel="alternate" hreflang={a.code} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0]!.href} />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={lang === 'es' ? 'es_AR' : 'en_US'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="Luz Mulinaris" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Icons + theme -->
+    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
+    <meta name="theme-color" content="#edeade" />
+
+    <!-- Body font: Karmina Sans (Adobe Typekit) -->
+    <link rel="preconnect" href="https://use.typekit.net" crossorigin />
+    <link rel="preconnect" href="https://p.typekit.net" crossorigin />
+    <link rel="stylesheet" href="https://use.typekit.net/sib3wym.css" />
+  </head>
+
+  <body id="top">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-ink focus:px-4 focus:py-2 focus:text-cream"
+    >
+      Skip to content
+    </a>
+
+    <Navbar lang={lang} langAlternates={langAlternates} />
+
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+
+    {!noFooter && <Footer lang={lang} />}
+
+    <!-- Generic scroll reveal: reveals [data-reveal] elements as they enter view -->
+    <script is:inline>
+      (() => {
+        const els = document.querySelectorAll('[data-reveal]');
+        if (!els.length) return;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !('IntersectionObserver' in window)) {
+          els.forEach((el) => el.classList.add('is-in'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries, obs) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in');
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+        );
+        els.forEach((el) => io.observe(el));
+      })();
+    </script>
+  </body>
+</html>

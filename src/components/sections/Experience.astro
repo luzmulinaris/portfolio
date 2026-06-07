@@ -1,0 +1,57 @@
+---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import { experience } from '../../data/cv';
+import SectionLabel from '../SectionLabel.astro';
+
+interface Props {
+  lang: Lang;
+  number?: string;
+}
+const { lang, number } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="container-edge py-16 md:py-24">
+  <SectionLabel number={number} title={t('about.experience')} />
+
+  <ul class="mt-10">
+    {
+      experience.map((job, i) => (
+        <li
+          class="group grid grid-cols-1 gap-3 border-b border-line py-7 transition-colors hover:bg-cream-100 md:grid-cols-12 md:gap-6"
+          data-reveal
+          style={`--reveal-delay: ${i * 60}ms`}
+        >
+          <div class="mono flex items-center gap-3 text-sm text-ink-500 md:col-span-3">
+            <span class="text-pink-ink">{String(i + 1).padStart(2, '0')}</span>
+            <span>{job.period[lang]}</span>
+            {job.ongoing && (
+              <span class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-pink" />
+            )}
+          </div>
+
+          <div class="md:col-span-6">
+            <h3 class="font-display text-2xl uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-pink sm:text-3xl">
+              {job.role[lang]}
+            </h3>
+            <p class="mt-1 text-ink-700">{job.org}</p>
+            <p class="mt-3 max-w-xl text-sm leading-relaxed text-ink-500">
+              {job.summary[lang]}
+            </p>
+          </div>
+
+          <div class="md:col-span-3">
+            <p class="eyebrow mb-2 text-ink-500">{job.kind[lang]}</p>
+            <ul class="flex flex-wrap gap-1.5">
+              {job.tasks.map((task) => (
+                <li class="mono rounded-full border border-line px-2.5 py-0.5 text-[0.68rem] text-ink-700">
+                  {task[lang]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</section>

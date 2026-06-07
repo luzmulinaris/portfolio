@@ -1,0 +1,62 @@
+---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import { education, courses } from '../../data/cv';
+import SectionLabel from '../SectionLabel.astro';
+
+interface Props {
+  lang: Lang;
+  number?: string;
+}
+const { lang, number } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="container-edge py-16 md:py-24">
+  <SectionLabel number={number} title={t('about.education')} />
+
+  <div class="mt-10 grid grid-cols-1 gap-12 md:grid-cols-2 md:gap-16">
+    <!-- Education -->
+    <div>
+      <p class="eyebrow text-ink-500">{t('about.education')}</p>
+      <ul class="mt-6 space-y-6">
+        {
+          education.map((e) => (
+            <li class="border-b border-line pb-6" data-reveal>
+              <h3 class="font-display text-2xl uppercase leading-tight tracking-tight text-ink">
+                {e.title[lang]}
+              </h3>
+              <p class="mt-1 text-ink-700">{e.org}</p>
+              <p class="mono mt-2 flex items-center gap-2 text-sm text-ink-500">
+                {e.period[lang]}
+                {e.ongoing && (
+                  <span class="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-pink" />
+                )}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <!-- Courses & workshops -->
+    <div>
+      <p class="eyebrow text-ink-500">{t('about.courses')}</p>
+      <ul class="mt-6 divide-y divide-line">
+        {
+          courses.map((c) => (
+            <li
+              class="flex items-baseline justify-between gap-4 py-4"
+              data-reveal
+            >
+              <div>
+                <p class="text-ink">{c.title[lang]}</p>
+                <p class="text-sm text-ink-500">{c.by[lang]}</p>
+              </div>
+              <span class="mono shrink-0 text-sm text-pink-ink">{c.year}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

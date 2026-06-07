@@ -1,0 +1,26 @@
+---
+interface Props {
+  number?: string;
+  title: string;
+  note?: string;
+  align?: 'left' | 'between';
+}
+const { number, title, note, align = 'between' } = Astro.props;
+---
+
+<header class="border-t border-line pt-6" data-reveal>
+  <div
+    class={`flex flex-col gap-3 ${align === 'between' ? 'md:flex-row md:items-end md:justify-between' : ''}`}
+  >
+    <div class="flex items-baseline gap-4">
+      {number && <span class="mono text-sm text-pink-ink">{number}_</span>}
+      <h2
+        class="font-display uppercase leading-[0.9] tracking-tight text-ink"
+        style="font-size: clamp(2rem, 6vw, 4.5rem)"
+      >
+        {title}
+      </h2>
+    </div>
+    {note && <p class="eyebrow text-ink-500 md:pb-2">{note}</p>}
+  </div>
+</header>

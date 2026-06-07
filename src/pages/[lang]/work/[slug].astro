@@ -1,0 +1,177 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '../../../i18n/utils';
+import { withBase, categoryKey } from '../../../lib/utils';
+
+export const getStaticPaths = (async () => {
+  const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  const langs: Lang[] = ['en', 'es'];
+  return langs.flatMap((lang) =>
+    projects.map((project, i) => ({
+      params: { lang, slug: project.id },
+      props: {
+        project,
+        next: projects[(i + 1) % projects.length]!,
+      },
+    })),
+  );
+}) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const { project, next } = Astro.props;
+const t = useTranslations(lang);
+const d = project.data;
+const accent = d.accent ?? 'var(--color-pink)';
+
+const meta = [
+  { label: t('project.role'), value: d.role[lang] },
+  { label: t('project.year'), value: d.year },
+  d.client ? { label: t('project.client'), value: d.client } : null,
+  { label: t('project.category'), value: t(categoryKey[d.category]) },
+  { label: t('project.type'), value: d.type[lang] },
+].filter(Boolean) as { label: string; value: string }[];
+---
+
+<BaseLayout
+  lang={lang}
+  title={d.title[lang]}
+  description={d.summary[lang]}
+  ogImage={d.cover}
+>
+  <article style={`--accent: ${accent}`}>
+    <!-- Header -->
+    <header class="container-edge pt-[calc(var(--nav-h)+2.5rem)]">
+      <a
+        href={localePath(lang, 'work')}
+        class="mono inline-flex items-center gap-2 text-sm text-ink-500 hover:text-pink"
+      >
+        ← {t('project.back')}
+      </a>
+
+      <p class="eyebrow mt-8 text-pink-ink">
+        {t(categoryKey[d.category])} · {d.type[lang]}
+      </p>
+      <h1
+        class="mt-4 max-w-5xl font-display uppercase leading-[0.88] tracking-tight text-ink"
+        style="font-size: clamp(2.5rem, 8vw, 6.5rem)"
+      >
+        {d.title[lang]}
+      </h1>
+      <p class="mt-6 max-w-2xl text-xl text-ink-700">{d.summary[lang]}</p>
+    </header>
+
+    <!-- Cover -->
+    <div class="container-edge mt-12">
+      <div class="overflow-hidden rounded-2xl bg-cream-200">
+        <img
+          src={withBase(d.cover)}
+          alt={d.coverAlt?.[lang] ?? d.title[lang]}
+          width="1600"
+          height="1067"
+          fetchpriority="high"
+          decoding="async"
+          class="w-full object-cover"
+        />
+      </div>
+    </div>
+
+    <!-- Body + meta -->
+    <div class="container-edge mt-16 grid grid-cols-1 gap-10 pb-8 md:grid-cols-12 md:gap-12">
+      <aside class="md:col-span-4 lg:col-span-3">
+        <dl class="space-y-5 border-t-2 border-[color:var(--accent)] pt-6">
+          {
+            meta.map((m) => (
+              <div>
+                <dt class="eyebrow text-ink-500">{m.label}</dt>
+                <dd class="mt-1 text-ink">{m.value}</dd>
+              </div>
+            ))
+          }
+          {
+            d.tools.length > 0 && (
+              <div>
+                <dt class="eyebrow text-ink-500">{t('about.tools')}</dt>
+                <dd class="mt-2 flex flex-wrap gap-1.5">
+                  {d.tools.map((tool) => (
+                    <span class="mono rounded-full border border-line px-2.5 py-0.5 text-xs text-ink-700">
+                      {tool}
+                    </span>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+          {
+            d.links.length > 0 && (
+              <div>
+                <dt class="eyebrow text-ink-500">{t('project.live')}</dt>
+                <dd class="mt-2 space-y-1">
+                  {d.links.map((l) => (
+                    <a
+                      href={l.url}
+                      rel="noopener"
+                      class="link-underline block text-ink hover:text-[color:var(--accent)]"
+                    >
+                      {l.label} ↗
+                    </a>
+                  ))}
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+      </aside>
+
+      <div class="md:col-span-8 lg:col-span-9">
+        <p class="max-w-3xl text-xl leading-relaxed text-ink-700 md:text-2xl">
+          {d.description[lang]}
+        </p>
+      </div>
+    </div>
+
+    <!-- Gallery -->
+    {
+      d.gallery.length > 0 && (
+        <div class="container-edge mt-8 grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
+          {d.gallery.map((src, i) => (
+            <figure
+              class={`overflow-hidden rounded-xl bg-cream-200 ${d.gallery.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}`}
+              data-reveal
+            >
+              <img
+                src={withBase(src)}
+                alt={`${d.title[lang]} — ${i + 1}`}
+                width="1600"
+                height="1067"
+                loading="lazy"
+                decoding="async"
+                class="w-full object-cover"
+              />
+            </figure>
+          ))}
+        </div>
+      )
+    }
+
+    <!-- Next project -->
+    <a
+      href={localePath(lang, `work/${next.id}`)}
+      class="group mt-12 block border-t border-line"
+      style={`--accent: ${next.data.accent ?? 'var(--color-pink)'}`}
+    >
+      <div class="container-edge flex items-center justify-between py-12">
+        <div>
+          <p class="eyebrow text-ink-500">{t('project.next')}</p>
+          <p class="mt-2 font-display uppercase leading-none tracking-tight text-ink transition-colors group-hover:text-[color:var(--accent)]" style="font-size: clamp(1.75rem, 5vw, 3.5rem)">
+            {next.data.title[lang]}
+          </p>
+        </div>
+        <span class="text-3xl text-ink transition-transform duration-300 group-hover:translate-x-2 group-hover:text-[color:var(--accent)]">→</span>
+      </div>
+    </a>
+  </article>
+</BaseLayout>

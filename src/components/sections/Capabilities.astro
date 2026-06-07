@@ -1,0 +1,48 @@
+---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import { skills, languages } from '../../data/cv';
+import SectionLabel from '../SectionLabel.astro';
+
+interface Props {
+  lang: Lang;
+  number?: string;
+}
+const { lang, number } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<section class="container-edge py-16 md:py-24">
+  <SectionLabel number={number} title={t('about.skills')} />
+
+  <div class="mt-10 grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
+    {
+      skills.map((group) => (
+        <div class="bg-cream p-6 md:p-8" data-reveal>
+          <p class="eyebrow text-pink-ink">{group.label[lang]}</p>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            {group.items.map((item) => (
+              <li class="rounded-full border border-line px-3 py-1 text-sm text-ink-700">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    <div class="bg-cream p-6 md:col-span-2 md:p-8" data-reveal>
+      <p class="eyebrow text-pink-ink">{lang === 'es' ? 'Idiomas' : 'Languages'}</p>
+      <ul class="mt-4 flex flex-wrap gap-6">
+        {
+          languages.map((l) => (
+            <li class="flex items-baseline gap-2">
+              <span class="font-display text-xl uppercase tracking-tight text-ink">
+                {l.name[lang]}
+              </span>
+              <span class="mono text-xs text-ink-500">{l.level[lang]}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

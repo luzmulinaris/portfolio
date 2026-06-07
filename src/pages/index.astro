@@ -1,0 +1,7 @@
+---
+// Root entry: redirect "/" (served at the configured base) to the default
+// locale. Uses BASE_URL so the target is correct on GitHub Pages (/portfolio/en/).
+import { localePath } from '../i18n/utils';
+
+return Astro.redirect(localePath('en'), 302);
+---

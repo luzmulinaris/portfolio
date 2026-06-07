@@ -1,0 +1,64 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '../../../i18n/utils';
+import { stripLocale, formatDate } from '../../../lib/utils';
+
+export const getStaticPaths = (() => [
+  { params: { lang: 'en' } },
+  { params: { lang: 'es' } },
+]) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const posts = (await getCollection('blog'))
+  .filter((p) => p.data.lang === lang && !p.data.draft)
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+---
+
+<BaseLayout lang={lang} title={t('blog.title')} description={t('blog.intro')}>
+  <section class="container-edge pt-[calc(var(--nav-h)+3rem)]">
+    <p class="eyebrow text-pink-ink">{t('blog.title')}</p>
+    <h1
+      class="mt-4 font-display uppercase leading-[0.85] tracking-tight text-ink"
+      style="font-size: var(--text-mega)"
+    >
+      {t('blog.title')}
+    </h1>
+    <p class="mt-6 max-w-xl text-lg text-ink-700">{t('blog.intro')}</p>
+  </section>
+
+  <section class="container-edge py-16">
+    {
+      posts.length === 0 ? (
+        <p class="text-ink-500">{t('blog.empty')}</p>
+      ) : (
+        <ul class="border-t border-line">
+          {posts.map((post, i) => (
+            <li data-reveal style={`--reveal-delay:${i * 60}ms`}>
+              <a
+                href={localePath(lang, `blog/${stripLocale(post.id)}`)}
+                class="group grid grid-cols-1 gap-3 border-b border-line py-8 transition-colors hover:bg-cream-100 md:grid-cols-12 md:items-baseline md:gap-6"
+              >
+                <span class="mono text-sm text-ink-500 md:col-span-3">
+                  {formatDate(post.data.pubDate, lang)}
+                </span>
+                <div class="md:col-span-7">
+                  <h2 class="font-display text-3xl uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-pink">
+                    {post.data.title}
+                  </h2>
+                  <p class="mt-2 max-w-xl text-ink-500">{post.data.description}</p>
+                </div>
+                <span class="mono text-sm text-ink-500 transition-transform group-hover:translate-x-1 md:col-span-2 md:text-right">
+                  {t('blog.readMore')} →
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </section>
+</BaseLayout>

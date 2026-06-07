@@ -1,0 +1,23 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import NameBand from '../../components/sections/NameBand.astro';
+import WorkPreview from '../../components/sections/WorkPreview.astro';
+import AboutTeaser from '../../components/sections/AboutTeaser.astro';
+import type { Lang } from '../../i18n/utils';
+
+export const getStaticPaths = (() => [
+  { params: { lang: 'en' } },
+  { params: { lang: 'es' } },
+]) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+---
+
+<BaseLayout lang={lang}>
+  <Hero lang={lang} />
+  <NameBand lang={lang} />
+  <WorkPreview lang={lang} />
+  <AboutTeaser lang={lang} />
+</BaseLayout>

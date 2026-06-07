@@ -1,0 +1,27 @@
+---
+interface Props {
+  items: string[];
+  /** Visual size of the strip. */
+  size?: 'sm' | 'lg';
+}
+const { items, size = 'sm' } = Astro.props;
+// Duplicate the run so the -50% translate loops seamlessly.
+const run = [...items, ...items];
+const textClass =
+  size === 'lg'
+    ? 'font-display uppercase tracking-tight text-[clamp(2.5rem,9vw,7rem)]'
+    : 'eyebrow text-sm';
+---
+
+<div class="relative overflow-hidden" aria-hidden="true">
+  <div class="flex w-max animate-[marquee_var(--dur,38s)_linear_infinite] whitespace-nowrap">
+    {
+      run.map((item) => (
+        <span class={`mx-6 inline-flex items-center gap-6 ${textClass}`}>
+          {item}
+          <span class="text-pink">✦</span>
+        </span>
+      ))
+    }
+  </div>
+</div>

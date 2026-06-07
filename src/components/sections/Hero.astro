@@ -1,0 +1,66 @@
+---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import LeadReveal, { type LeadPart } from '../react/LeadReveal.tsx';
+import Marquee from '../Marquee.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const leadParts: Record<Lang, LeadPart[]> = {
+  en: [
+    { text: 'I design' },
+    { text: 'editorial systems,', mark: true },
+    { text: 'packaging', mark: true },
+    { text: 'and' },
+    { text: 'visual identities', mark: true },
+    { text: '— turning ideas into printed and digital pieces with care for type, image and detail.' },
+  ],
+  es: [
+    { text: 'Diseño' },
+    { text: 'sistemas editoriales,', mark: true },
+    { text: 'packaging', mark: true },
+    { text: 'e' },
+    { text: 'identidades visuales', mark: true },
+    { text: '— convierto ideas en piezas impresas y digitales cuidando la tipografía, la imagen y el detalle.' },
+  ],
+};
+
+const marqueeItems =
+  lang === 'es'
+    ? ['Editorial', 'Packaging', 'Identidad Visual', 'Redes', 'Tipografía', 'Ilustración']
+    : ['Editorial', 'Packaging', 'Visual Identity', 'Social', 'Typography', 'Illustration'];
+---
+
+<section class="relative flex min-h-[100svh] flex-col justify-between pt-[var(--nav-h)]">
+  <div class="container-edge flex flex-1 flex-col justify-center py-10">
+    <div class="flex items-center justify-between">
+      <p class="eyebrow flex items-center gap-2 text-ink">
+        <span class="inline-block h-2 w-2 animate-pulse rounded-full bg-pink"></span>
+        {t('hero.available')}
+      </p>
+      <p class="eyebrow hidden text-ink-500 sm:block">{t('hero.location')}</p>
+    </div>
+
+    <h1
+      class="mt-8 font-display uppercase leading-[0.85] tracking-[-0.02em] text-ink"
+      style="font-size: var(--text-mega)"
+      data-reveal
+    >
+      <span class="block">{lang === 'es' ? 'Diseñadora' : 'Graphic'}</span>
+      <span class="block">{lang === 'es' ? 'Gráfica' : 'Designer'}<span class="text-pink">.</span></span>
+    </h1>
+
+    <LeadReveal
+      client:visible
+      parts={leadParts[lang]}
+      className="mt-10 max-w-3xl text-balance text-2xl leading-snug text-ink-700 sm:text-3xl"
+    />
+  </div>
+
+  <div class="border-y border-line py-4">
+    <Marquee items={marqueeItems} />
+  </div>
+</section>

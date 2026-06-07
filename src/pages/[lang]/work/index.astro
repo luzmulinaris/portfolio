@@ -1,0 +1,103 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectCard from '../../../components/ProjectCard.astro';
+import { useTranslations, type Lang } from '../../../i18n/utils';
+import { categoryKey } from '../../../lib/utils';
+
+export const getStaticPaths = (() => [
+  { params: { lang: 'en' } },
+  { params: { lang: 'es' } },
+]) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const order = ['editorial', 'packaging', 'identity', 'social', 'other'] as const;
+const present = order.filter((c) => projects.some((p) => p.data.category === c));
+const filters = [
+  { key: 'all', label: t('work.all'), count: projects.length },
+  ...present.map((c) => ({
+    key: c,
+    label: t(categoryKey[c]),
+    count: projects.filter((p) => p.data.category === c).length,
+  })),
+];
+---
+
+<BaseLayout lang={lang} title={t('work.title')} description={t('work.intro')}>
+  <section class="container-edge pt-[calc(var(--nav-h)+3rem)]">
+    <p class="eyebrow text-pink-ink">{String(projects.length).padStart(2, '0')} {t('work.count')}</p>
+    <h1
+      class="mt-4 font-display uppercase leading-[0.85] tracking-tight text-ink"
+      style="font-size: var(--text-mega)"
+    >
+      {t('work.title')}
+    </h1>
+    <p class="mt-6 max-w-xl text-lg text-ink-700">{t('work.intro')}</p>
+  </section>
+
+  <!-- Filter bar -->
+  <div
+    class="container-edge sticky top-[var(--nav-h)] z-30 mt-12 bg-cream/85 py-4 backdrop-blur"
+    data-filterbar
+  >
+    <div class="flex flex-wrap gap-2">
+      {
+        filters.map((f) => (
+          <button
+            type="button"
+            data-filter={f.key}
+            aria-pressed={f.key === 'all' ? 'true' : 'false'}
+            class="mono inline-flex min-h-[40px] items-center rounded-full border border-line px-4 text-xs uppercase tracking-wider text-ink-700 transition-colors data-[active]:border-ink data-[active]:bg-ink data-[active]:text-cream"
+          >
+            {f.label} <span class="text-ink-500">({f.count})</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <section class="container-edge pb-24 pt-12">
+    <div
+      class="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
+      data-grid
+    >
+      {projects.map((project, i) => <ProjectCard project={project} lang={lang} index={i} />)}
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  (() => {
+    const bar = document.querySelector('[data-filterbar]');
+    const grid = document.querySelector('[data-grid]');
+    if (!bar || !grid) return;
+    const buttons = bar.querySelectorAll('[data-filter]');
+    const cards = grid.querySelectorAll('[data-category]');
+    const setActive = (btn) => {
+      buttons.forEach((b) => {
+        const on = b === btn;
+        b.toggleAttribute('data-active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+    };
+    // first button active by default
+    if (buttons[0]) buttons[0].setAttribute('data-active', '');
+    bar.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-filter]');
+      if (!btn) return;
+      const f = btn.getAttribute('data-filter');
+      setActive(btn);
+      cards.forEach((c) => {
+        const show = f === 'all' || c.getAttribute('data-category') === f;
+        c.style.display = show ? '' : 'none';
+      });
+    });
+  })();
+</script>

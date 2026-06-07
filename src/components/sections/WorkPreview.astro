@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations, localePath, type Lang } from '../../i18n/utils';
+import SectionLabel from '../SectionLabel.astro';
+import ProjectCard from '../ProjectCard.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const all = await getCollection('projects');
+const featured = all
+  .filter((p) => p.data.featured)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="container-edge py-20 md:py-28">
+  <SectionLabel
+    number="02"
+    title={t('home.selectedWork')}
+    note={t('home.selectedWork.note')}
+  />
+
+  <div class="mt-12 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2">
+    {featured.map((project, i) => <ProjectCard project={project} lang={lang} index={i} />)}
+  </div>
+
+  <div class="mt-16 border-t border-line pt-8">
+    <a
+      href={localePath(lang, 'work')}
+      class="group inline-flex items-end gap-4 font-display uppercase leading-none tracking-tight text-ink transition-colors hover:text-pink"
+      style="font-size: clamp(2rem, 6vw, 4rem)"
+    >
+      {t('home.viewAll')}
+      <span class="text-pink transition-transform duration-300 group-hover:translate-x-2">→</span>
+    </a>
+  </div>
+</section>

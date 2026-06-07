@@ -1,0 +1,112 @@
+---
+import { useTranslations, localePath, alternatePath, type Lang } from '../i18n/utils';
+import { contact } from '../data/cv';
+import MobileNav from './react/MobileNav.tsx';
+
+interface Props {
+  lang: Lang;
+  langAlternates?: Record<Lang, string>;
+}
+const { lang, langAlternates } = Astro.props;
+const t = useTranslations(lang);
+const path = Astro.url.pathname;
+
+const links = [
+  { href: localePath(lang, 'work'), label: t('nav.work'), key: 'work' },
+  { href: localePath(lang, 'about'), label: t('nav.about'), key: 'about' },
+  { href: localePath(lang, 'blog'), label: t('nav.blog'), key: 'blog' },
+  { href: '#contact', label: t('nav.contact'), key: 'contact' },
+];
+
+const isActive = (href: string, key: string) =>
+  key !== 'contact' && path.replace(/\/$/, '').startsWith(href.replace(/\/$/, ''));
+
+const langLinks = (['en', 'es'] as Lang[]).map((code) => ({
+  code,
+  label: code.toUpperCase(),
+  href: langAlternates?.[code] ?? alternatePath(Astro.url, code),
+  active: code === lang,
+}));
+---
+
+<header
+  id="site-header"
+  class="fixed inset-x-0 top-0 z-40 transition-colors duration-300"
+  data-header
+>
+  <div
+    class="container-edge flex items-center justify-between"
+    style="height: var(--nav-h)"
+  >
+    <a
+      href={localePath(lang)}
+      class="font-display text-lg uppercase leading-none tracking-tight text-ink transition-colors hover:text-pink"
+      aria-label="Luz Mulinaris — home"
+    >
+      Luz Mulinaris<span class="text-pink">.</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="eyebrow link-underline text-ink/80 hover:text-ink"
+            aria-current={isActive(l.href, l.key) ? 'page' : undefined}
+            style={isActive(l.href, l.key) ? 'color: var(--color-pink-ink)' : undefined}
+          >
+            {l.label}
+          </a>
+        ))
+      }
+      <span class="h-3 w-px bg-line" aria-hidden="true"></span>
+      <div class="flex items-center gap-2" aria-label="Language">
+        {
+          langLinks.map((l, i) => (
+            <>
+              {i > 0 && <span class="text-ink/30">/</span>}
+              <a
+                href={l.href}
+                class="eyebrow"
+                aria-current={l.active ? 'true' : undefined}
+                style={l.active ? 'color: var(--color-pink-ink)' : 'color: var(--color-ink)'}
+              >
+                {l.code.toUpperCase()}
+              </a>
+            </>
+          ))
+        }
+      </div>
+    </nav>
+
+    <MobileNav
+      client:idle
+      links={links.map(({ href, label }) => ({ href, label }))}
+      openLabel={t('nav.menu')}
+      closeLabel={t('nav.close')}
+      email={contact.email}
+      langLinks={langLinks}
+    />
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('[data-header]');
+    if (!header) return;
+    const onScroll = () => {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>
+
+<style>
+  [data-header].is-scrolled {
+    background-color: color-mix(in srgb, var(--color-cream) 82%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-line);
+  }
+</style>

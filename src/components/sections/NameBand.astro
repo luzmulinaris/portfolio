@@ -1,0 +1,24 @@
+---
+import { useTranslations, type Lang } from '../../i18n/utils';
+import ScrollName from '../react/ScrollName.tsx';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const subtitle = lang === 'es' ? 'Portfolio de Diseño Gráfico' : 'Graphic Design Portfolio';
+---
+
+<section class="container-edge py-24 md:py-36">
+  <p class="eyebrow text-ink-500">( {subtitle} )</p>
+  <div
+    class="mt-6 font-display uppercase leading-[0.82] tracking-[-0.02em] text-ink"
+    style="font-size: clamp(3rem, 15vw, 14rem)"
+  >
+    <ScrollName client:visible lines={['Luz', 'Mulinaris']} />
+  </div>
+  <p class="mono mt-8 max-w-md text-sm text-ink-500">
+    {t('hero.role')} · {t('hero.location')}
+  </p>
+</section>

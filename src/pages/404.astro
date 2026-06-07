@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { localePath } from '../i18n/utils';
+---
+
+<BaseLayout lang="en" title="404" description="Page not found">
+  <section class="container-edge flex min-h-[80svh] flex-col justify-center py-24">
+    <p class="eyebrow text-pink-ink">404</p>
+    <h1
+      class="mt-4 font-display uppercase leading-[0.85] tracking-tight text-ink"
+      style="font-size: var(--text-mega)"
+    >
+      Lost<span class="text-pink">.</span>
+    </h1>
+    <p class="mt-6 max-w-md text-lg text-ink-700">
+      This page doesn’t exist — but plenty of work does. / Esta página no existe — pero hay mucho
+      trabajo para ver.
+    </p>
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a
+        href={localePath('en')}
+        class="mono rounded-full bg-ink px-6 py-3 text-sm uppercase tracking-wider text-cream transition-colors hover:bg-pink"
+      >
+        Home (EN)
+      </a>
+      <a
+        href={localePath('es')}
+        class="mono rounded-full border border-line px-6 py-3 text-sm uppercase tracking-wider text-ink transition-colors hover:border-ink"
+      >
+        Inicio (ES)
+      </a>
+    </div>
+  </section>
+</BaseLayout>

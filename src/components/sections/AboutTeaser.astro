@@ -1,0 +1,57 @@
+---
+import { useTranslations, localePath, type Lang } from '../../i18n/utils';
+import { withBase } from '../../lib/utils';
+import { about, skills } from '../../data/cv';
+import SectionLabel from '../SectionLabel.astro';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const capabilities = skills[0]!.items; // disciplines
+---
+
+<section class="container-edge py-20 md:py-28">
+  <SectionLabel number="03" title={t('home.aboutTitle')} />
+
+  <div class="mt-12 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-14">
+    <div class="md:col-span-5 lg:col-span-4" data-reveal>
+      <div class="overflow-hidden rounded-xl bg-cream-200">
+        <img
+          src={withBase('/images/luz-portrait.webp')}
+          alt={lang === 'es' ? 'Retrato de Luz Mulinaris' : 'Portrait of Luz Mulinaris'}
+          width="1100"
+          height="1156"
+          loading="lazy"
+          decoding="async"
+          class="aspect-[4/5] h-full w-full object-cover object-top"
+        />
+      </div>
+    </div>
+
+    <div class="md:col-span-7 lg:col-span-8" data-reveal style="--reveal-delay: 120ms">
+      <p class="font-display text-3xl uppercase tracking-tight text-pink-ink">{about.hello[lang]}</p>
+      <div class="mt-4 space-y-5 text-lg leading-relaxed text-ink-700 md:text-xl">
+        {about.bio.map((p) => <p>{p[lang]}</p>)}
+      </div>
+
+      <ul class="mt-8 flex flex-wrap gap-2">
+        {
+          capabilities.map((c) => (
+            <li class="mono rounded-full border border-line px-3 py-1 text-xs text-ink-700">
+              {c}
+            </li>
+          ))
+        }
+      </ul>
+
+      <a
+        href={localePath(lang, 'about')}
+        class="link-underline mt-8 inline-flex items-center gap-2 font-display text-2xl uppercase tracking-tight text-ink hover:text-pink"
+      >
+        {t('home.aboutLink')} <span class="text-pink">→</span>
+      </a>
+    </div>
+  </div>
+</section>

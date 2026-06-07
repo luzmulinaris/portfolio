@@ -1,0 +1,93 @@
+---
+import { useTranslations, localePath, type Lang } from '../i18n/utils';
+import { contact } from '../data/cv';
+
+interface Props {
+  lang: Lang;
+}
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const year = 2026;
+
+const sitemap = [
+  { href: localePath(lang, 'work'), label: t('nav.work') },
+  { href: localePath(lang, 'about'), label: t('nav.about') },
+  { href: localePath(lang, 'blog'), label: t('nav.blog') },
+];
+const elsewhere = [
+  { href: contact.linkedinUrl, label: 'LinkedIn' },
+  { href: `mailto:${contact.email}`, label: 'Email' },
+  { href: contact.phoneHref, label: contact.phone },
+];
+---
+
+<footer id="contact" class="bg-night text-cream">
+  <div class="container-edge pt-20 pb-10 md:pt-28">
+    <p class="eyebrow text-pink">{t('contact.title')}</p>
+
+    <a
+      href={`mailto:${contact.email}`}
+      class="link-underline mt-6 inline-block break-words font-display uppercase leading-[0.9] tracking-tight"
+      style="font-size: clamp(2.25rem, 8vw, 7rem)"
+    >
+      {contact.email}
+    </a>
+
+    <p class="mt-6 max-w-xl text-lg text-cream/70">{t('contact.lead')}</p>
+
+    <div class="mt-16 grid grid-cols-2 gap-8 border-t border-cream/15 pt-10 sm:grid-cols-4">
+      <div>
+        <p class="eyebrow text-cream/40">{t('footer.sitemap')}</p>
+        <ul class="mt-4 space-y-2">
+          {
+            sitemap.map((l) => (
+              <li>
+                <a href={l.href} class="link-underline text-cream/85 hover:text-cream">
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-cream/40">{t('footer.elsewhere')}</p>
+        <ul class="mt-4 space-y-2">
+          {
+            elsewhere.map((l) => (
+              <li>
+                <a
+                  href={l.href}
+                  class="link-underline text-cream/85 hover:text-cream"
+                  rel="noopener"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div>
+        <p class="eyebrow text-cream/40">{t('about.title')}</p>
+        <p class="mt-4 text-cream/85">{contact.name}</p>
+        <p class="text-cream/55">{contact.location[lang]}</p>
+      </div>
+
+      <div class="flex flex-col items-start sm:items-end">
+        <a href="#top" class="eyebrow text-cream/60 hover:text-pink">
+          ↑ {t('footer.backToTop')}
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="mono mt-12 flex flex-col gap-2 text-xs text-cream/40 sm:flex-row sm:items-center sm:justify-between"
+    >
+      <span>© {year} {contact.name}. {t('footer.rights')}.</span>
+      <span>{t('footer.builtWith')} · Tailwind CSS · React</span>
+    </div>
+  </div>
+</footer>

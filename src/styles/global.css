@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+/*
+ * Fonts:
+ *  - Display "Big Shoulders Display Variable" + "JetBrains Mono" are imported
+ *    in BaseLayout.astro via @fontsource (Vite resolves node_modules).
+ *  - Body "karmina-sans" is loaded from Adobe Typekit in <head> (BaseLayout).
+ */
+
+/* ── Design tokens (Tailwind v4 CSS-first @theme) ────────────────────── */
+@theme {
+  /* Palette — primary #EE65A0 (pink), secondary #EDEADE (cream) */
+  --color-cream: #edeade;
+  --color-cream-100: #f5f3ea;
+  --color-cream-200: #e4e0d1;
+  --color-cream-300: #d7d2bf;
+
+  --color-ink: #161310;
+  --color-ink-700: #3a352c;
+  --color-ink-500: #6b6557;
+  --color-ink-300: #9a9486;
+
+  --color-pink: #ee65a0;
+  --color-pink-bright: #ff7ab1;
+  --color-pink-deep: #d23f80;
+  --color-pink-soft: #f8d4e4;
+  /* Darker pink that meets WCAG AA (4.71:1) for text on the cream background. */
+  --color-pink-ink: #b83269;
+
+  --color-line: #cdc7b4;
+  --color-night: #161310;
+
+  /* Type families */
+  --font-display: "Big Shoulders Display Variable", "Arial Narrow", "Impact",
+    sans-serif;
+  --font-body: "karmina-sans", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
+
+  /* Fluid display sizes */
+  --text-mega: clamp(3.5rem, 13vw, 13rem);
+  --text-giga: clamp(5rem, 22vw, 22rem);
+
+  /* Motion */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ── Base layer ──────────────────────────────────────────────────────── */
+@layer base {
+  :root {
+    color-scheme: light;
+    --nav-h: 4.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: var(--nav-h);
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: var(--color-pink);
+    color: var(--color-cream);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pink-deep);
+    outline-offset: 3px;
+  }
+
+  /* Display headings default to the Big Shoulders face */
+  h1,
+  h2,
+  h3,
+  .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ── Components / utilities ──────────────────────────────────────────── */
+@layer components {
+  /* Editorial mono label, à la noxediem / ownitt */
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Page horizontal rhythm */
+  .container-edge {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 90rem;
+    padding-inline: clamp(1.25rem, 5vw, 5rem);
+  }
+
+  /* Pink marker sweep behind highlighted lead phrases (noxediem-style) */
+  .mark-sweep {
+    background-image: linear-gradient(var(--color-pink), var(--color-pink));
+    background-repeat: no-repeat;
+    background-position: 0 88%;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    border-radius: 2px;
+    padding-inline: 0.04em;
+  }
+
+  /* Animated link underline */
+  .link-underline {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.4s var(--ease-out-expo);
+  }
+  .link-underline:hover,
+  .link-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+/* ── Blog prose ──────────────────────────────────────────────────────── */
+.prose-luz {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--color-ink-700);
+}
+.prose-luz > * + * {
+  margin-top: 1.25em;
+}
+.prose-luz h2 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: var(--color-ink);
+  margin-top: 2em;
+}
+.prose-luz h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  color: var(--color-ink);
+  margin-top: 1.6em;
+}
+.prose-luz strong {
+  color: var(--color-ink);
+  font-weight: 700;
+}
+.prose-luz a {
+  color: var(--color-pink-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-luz ul {
+  list-style: none;
+  padding-left: 0;
+}
+.prose-luz ul li {
+  position: relative;
+  padding-left: 1.4em;
+}
+.prose-luz ul li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--color-pink);
+}
+.prose-luz blockquote {
+  border-left: 3px solid var(--color-pink);
+  padding-left: 1.25rem;
+  font-style: italic;
+  color: var(--color-ink);
+}
+
+/* JS-reveal hooks: hidden until the IntersectionObserver island adds .is-in */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(1.4rem);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
+}

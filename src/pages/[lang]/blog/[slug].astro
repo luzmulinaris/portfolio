@@ -1,0 +1,81 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { useTranslations, localePath, type Lang } from '../../../i18n/utils';
+import { stripLocale, formatDate } from '../../../lib/utils';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog');
+
+  // Map each translationKey -> { en: slug, es: slug } to pair locale versions.
+  const byKey = new Map<string, Partial<Record<Lang, string>>>();
+  for (const p of posts) {
+    const m = byKey.get(p.data.translationKey) ?? {};
+    m[p.data.lang] = stripLocale(p.id);
+    byKey.set(p.data.translationKey, m);
+  }
+
+  return posts.map((entry) => {
+    const slug = stripLocale(entry.id);
+    const sib = byKey.get(entry.data.translationKey) ?? {};
+    const langAlternates: Record<Lang, string> = {
+      en: localePath('en', `blog/${sib.en ?? slug}`),
+      es: localePath('es', `blog/${sib.es ?? slug}`),
+    };
+    return {
+      params: { lang: entry.data.lang, slug },
+      props: { entry, langAlternates },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const lang = Astro.params.lang as Lang;
+const { entry, langAlternates } = Astro.props;
+const t = useTranslations(lang);
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  lang={lang}
+  title={entry.data.title}
+  description={entry.data.description}
+  langAlternates={langAlternates}
+>
+  <article class="container-edge pt-[calc(var(--nav-h)+3rem)]">
+    <a
+      href={localePath(lang, 'blog')}
+      class="mono inline-flex items-center gap-2 text-sm text-ink-500 hover:text-pink"
+    >
+      ← {t('blog.backToBlog')}
+    </a>
+
+    <header class="mt-8 border-b border-line pb-8">
+      <p class="mono text-sm text-pink-ink">
+        {t('blog.published')} · {formatDate(entry.data.pubDate, lang)}
+      </p>
+      <h1
+        class="mt-4 max-w-4xl font-display uppercase leading-[0.9] tracking-tight text-ink"
+        style="font-size: clamp(2.25rem, 7vw, 5rem)"
+      >
+        {entry.data.title}
+      </h1>
+      <p class="mt-5 max-w-2xl text-xl text-ink-700">{entry.data.description}</p>
+      {
+        entry.data.tags.length > 0 && (
+          <ul class="mt-6 flex flex-wrap gap-2">
+            {entry.data.tags.map((tag) => (
+              <li class="mono rounded-full border border-line px-3 py-1 text-xs text-ink-700">
+                #{tag}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    <div class="prose-luz mx-auto mt-12 max-w-2xl pb-24">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
