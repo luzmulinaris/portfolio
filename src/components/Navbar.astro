@@ -115,4 +115,13 @@ const langLinks = (['en', 'es'] as Lang[]).map((code) => ({
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-line);
   }
+
+  /* While the mobile menu is open, the full-screen panel covers the header, so
+     drop the scrolled backdrop-filter — otherwise it becomes the containing
+     block for the panel's `position: fixed` and clips it to the header's box. */
+  [data-header][data-menu-open] {
+    background-color: transparent;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
 </style>

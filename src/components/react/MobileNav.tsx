@@ -27,15 +27,21 @@ export default function MobileNav({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const prevOpen = useRef(false);
 
-  // Body scroll lock + Escape to close.
+  // Body scroll lock + Escape to close. Also flag the header so its scrolled
+  // backdrop-filter is dropped while open: a backdrop-filter turns the header
+  // into the containing block for its fixed descendants, which would otherwise
+  // clip this panel to the header's box once the page is scrolled.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
+    const header = triggerRef.current?.closest<HTMLElement>('[data-header]') ?? null;
+    if (header) header.toggleAttribute('data-menu-open', open);
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false);
     };
     window.addEventListener('keydown', onKey);
     return () => {
       document.body.style.overflow = '';
+      header?.removeAttribute('data-menu-open');
       window.removeEventListener('keydown', onKey);
     };
   }, [open]);
@@ -99,10 +105,6 @@ export default function MobileNav({
         tabIndex={-1}
         hidden={!open}
         className="fixed inset-0 z-50 flex flex-col bg-cream px-6 pb-10 pt-24 outline-none"
-        style={{
-          transition: 'opacity .35s ease',
-          opacity: open ? 1 : 0,
-        }}
       >
         <nav className="flex flex-1 flex-col justify-center gap-1" aria-label="Mobile">
           {links.map((l, i) => (
@@ -110,19 +112,18 @@ export default function MobileNav({
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="font-display text-6xl uppercase leading-[0.95] text-ink transition-colors hover:text-pink"
-              style={{
-                opacity: open ? 1 : 0,
-                transform: open ? 'none' : 'translateY(1rem)',
-                transition: `opacity .5s ${120 + i * 70}ms, transform .5s ${120 + i * 70}ms`,
-              }}
+              className="nav-rise font-display text-6xl uppercase leading-[0.95] text-ink transition-colors hover:text-pink"
+              style={{ animationDelay: `${90 + i * 65}ms` }}
             >
               {l.label}
             </a>
           ))}
         </nav>
 
-        <div className="mt-auto flex items-end justify-between border-t border-line pt-6">
+        <div
+          className="nav-rise mt-auto flex items-end justify-between border-t border-line pt-6"
+          style={{ animationDelay: `${90 + links.length * 65}ms` }}
+        >
           <a href={`mailto:${email}`} className="mono text-sm link-underline">
             {email}
           </a>

@@ -55,6 +55,19 @@
   }
 }
 
+/* Staggered entrance for the mobile menu items. Uses a keyframe (not a
+ * transition) so it replays each time the panel goes display:none -> flex. */
+@keyframes nav-rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* ── Base layer ──────────────────────────────────────────────────────── */
 @layer base {
   :root {
@@ -160,6 +173,11 @@
   .link-underline:hover,
   .link-underline:focus-visible {
     background-size: 100% 1px;
+  }
+
+  /* Mobile menu entrance — pair with an inline `animation-delay` to stagger. */
+  .nav-rise {
+    animation: nav-rise 0.55s var(--ease-out-expo) both;
   }
 }
 
