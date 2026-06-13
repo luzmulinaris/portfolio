@@ -34,8 +34,14 @@ coverAlt:
   en: Stack of El Gato y La Caja magazine issues
   es: Pila de ejemplares de la revista El Gato y La Caja
 gallery:
-  - /projects/el-gato-revista-2.webp
-  - /projects/el-gato-revista-3.webp
+  - "/projects/primer pag.png"
+  - "/projects/INDICE.png"
+  - "/projects/OTRA EDICION.png"
+  - "/projects/OTRA EDICON2.png"
+  - "/projects/otra nota.png"
+  - "/projects/otra nota1.png"
+  - "/projects/otea nota.png"
+  - "/projects/entrev 2.png"
 tags: [Editorial, Magazine, Typography, Print]
 tools: [InDesign, Photoshop, Illustrator]
 accent: "#2e3d6b"
