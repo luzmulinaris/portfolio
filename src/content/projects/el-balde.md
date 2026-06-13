@@ -41,6 +41,6 @@ gallery:
 tags: [Editorial, Illustration, Bookbinding]
 tools: [Illustrator, InDesign]
 accent: "#c2241c"
-featured: false
+featured: true
 order: 3
 ---

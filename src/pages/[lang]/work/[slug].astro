@@ -139,7 +139,7 @@ const meta = [
         <div class="container-edge mt-8 grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
           {d.gallery.map((src, i) => (
             <figure
-              class={`overflow-hidden rounded-xl bg-cream-200 ${d.gallery.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}`}
+              class={`flex overflow-hidden rounded-xl bg-cream-200 ${d.gallery.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}`}
               data-reveal
             >
               <img
@@ -149,7 +149,7 @@ const meta = [
                 height="1067"
                 loading="lazy"
                 decoding="async"
-                class="w-full object-cover"
+                class="block h-full w-full object-cover"
               />
             </figure>
           ))}

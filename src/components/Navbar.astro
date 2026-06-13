@@ -31,7 +31,7 @@ const langLinks = (['en', 'es'] as Lang[]).map((code) => ({
 
 <header
   id="site-header"
-  class="fixed inset-x-0 top-0 z-40 transition-colors duration-300"
+  class="fixed inset-x-0 top-0 z-40 bg-cream transition-colors duration-300 md:bg-transparent"
   data-header
 >
   <div
@@ -104,6 +104,12 @@ const langLinks = (['en', 'es'] as Lang[]).map((code) => ({
 </script>
 
 <style>
+  @media (max-width: 767px) {
+    [data-header] {
+      border-bottom: 1px solid var(--color-line);
+    }
+  }
+
   [data-header].is-scrolled {
     background-color: color-mix(in srgb, var(--color-cream) 82%, transparent);
     backdrop-filter: blur(12px);

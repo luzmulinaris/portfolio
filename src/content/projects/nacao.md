@@ -33,6 +33,6 @@ gallery:
 tags: [Packaging, Branding, Illustration]
 tools: [Illustrator, Photoshop]
 accent: "#6b4a2f"
-featured: true
+featured: false
 order: 4
 ---
