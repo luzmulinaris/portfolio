@@ -26,13 +26,18 @@ role:
   es: Ilustraciones · Puesta en página · Cosido del libro
 year: "2023"
 client: Horacio Quiroga
-cover: /projects/el-balde.webp
+cover: /projects/LIBRO MOCKUP1.jpg
 coverAlt:
   en: Open illustrated book with red and black drawings
   es: Libro ilustrado abierto con dibujos en rojo y negro
 gallery:
-  - /projects/el-balde-2.webp
-  - /projects/el-balde-3.webp
+  - /projects/libro mockup2.jpg
+  - /projects/libro mockup3.jpg
+  - /projects/libro mockup4.jpg
+  - /projects/libro mockup5.jpg
+  - /projects/libro mockup6.jpg
+  - /projects/libro mockup7.jpg
+  - /projects/libro mockup8.jpg
 tags: [Editorial, Illustration, Bookbinding]
 tools: [Illustrator, InDesign]
 accent: "#c2241c"

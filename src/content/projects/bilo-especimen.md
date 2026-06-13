@@ -26,12 +26,17 @@ role:
   es: Puesta en página · Puesta tipográfica · Preparación de impresión
 year: "2023"
 client: Bilo (Bold Monday)
-cover: /projects/bilo-especimen.webp
+cover: /projects/especimen 10.jpg
 coverAlt:
   en: Red Bilo type specimen booklet
   es: Folleto rojo del espécimen tipográfico Bilo
 gallery:
-  - /projects/bilo-especimen-2.webp
+  - /projects/especimen 1.jpg
+  - /projects/especimen 2.jpg
+  - /projects/especimen 3.jpg
+  - /projects/especimen 4.jpg
+  - /projects/especimen 7.jpg
+  - /projects/especimen 55.jpg
 tags: [Editorial, Typography, Specimen]
 tools: [InDesign, Illustrator]
 accent: "#e8431f"

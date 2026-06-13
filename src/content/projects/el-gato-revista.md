@@ -29,7 +29,7 @@ role:
   es: Diseño editorial · Edición de imágenes · Logo · Tipografía · Preparación de impresión
 year: "2024"
 client: El Gato y La Caja
-cover: /projects/el-gato-revista.webp
+cover: /projects/Free_Letter_Catalog_Mockup_02.png
 coverAlt:
   en: Stack of El Gato y La Caja magazine issues
   es: Pila de ejemplares de la revista El Gato y La Caja

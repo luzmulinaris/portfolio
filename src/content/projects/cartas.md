@@ -24,12 +24,23 @@ role:
   en: Card design · Usage manual · Packaging
   es: Diseño de cartas · Manual de uso · Caja contenedora
 year: "2023"
-cover: /projects/cartas.webp
+cover: /projects/inglesas 5.jpg
 coverAlt:
   en: Colourful playing cards inspired by Lester Beall
   es: Cartas coloridas inspiradas en Lester Beall
 gallery:
-  - /projects/cartas-2.webp
+  - /projects/inglesa 1.jpg
+  - /projects/inglesas 3.jpg
+  - /projects/inglesas 4.jpg
+  - /projects/inglesas 5.jpg
+  - /projects/inglesas 6.jpg
+  - /projects/cartas espanolas 3.jpg
+  - /projects/cartas espanolas 1.jpg
+  - /projects/cartas espanolas 2.jpg
+  - /projects/cartas espanolas 4.jpg
+  - /projects/dorsos.jpg
+  - /projects/joker inglesas.jpg
+  - /projects/joker espanolas.jpg
 tags: [Packaging, Graphic system, Illustration]
 tools: [Illustrator, InDesign]
 accent: "#e0322f"
