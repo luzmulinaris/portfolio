@@ -5,8 +5,8 @@
   "private": true,
   "description": "Portfolio de diseño gráfico de Luz Mulinaris — Astro + React + Tailwind v4",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
+    "dev": "NODE_ENV=development astro dev",
+    "start": "NODE_ENV=development astro dev",
     "build": "astro check && astro build",
     "build:fast": "astro build",
     "preview": "astro preview",
@@ -30,5 +30,8 @@
     "@tailwindcss/postcss": "^4.3.0",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0"
+  },
+  "overrides": {
+    "vite": "^7.3.5"
   }
 }
