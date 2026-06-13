@@ -24,12 +24,12 @@ role:
   en: Packaging system · Illustration · Logo
   es: Sistema de packaging · Ilustración · Logo
 year: "2024"
-cover: /projects/nacao.webp
+cover: /projects/nacao choco.png
 coverAlt:
   en: Three Nacao chocolate bars by cacao percentage
   es: Tres barras de chocolate Nacao por porcentaje de cacao
 gallery:
-  - /projects/nacao-2.webp
+  - /projects/nacao tarros.png
 tags: [Packaging, Branding, Illustration]
 tools: [Illustrator, Photoshop]
 accent: "#6b4a2f"

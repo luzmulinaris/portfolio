@@ -25,12 +25,12 @@ role:
   es: Diseño de placas para redes
 year: "2024"
 client: El Gato y La Caja
-cover: /projects/feed-el-gato.webp
+cover: /projects/feed gato_2.png
 coverAlt:
   en: Instagram feed mockup for El Gato y La Caja
   es: Mockup de feed de Instagram de El Gato y La Caja
 gallery:
-  - /projects/feed-el-gato-2.webp
+  - /projects/feed gato 2.png
 tags: [Social, Instagram, Editorial]
 tools: [Photoshop, Illustrator]
 accent: "#3a7d5c"
