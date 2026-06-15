@@ -7,8 +7,8 @@ type:
   en: Professional project
   es: Proyecto laboral
 summary:
-  en: Credentials and a standing banner for an AAGOS conference.
-  es: Credenciales y banner de pie para una jornada de AAGOS.
+  en: Credentials, standing banner and press back for an AAGOS conference.
+  es: Credenciales, banner de pie y back de prensa para una jornada de AAGOS.
 description:
   en: >-
     Design of credentials and a standing roll-up banner for a conference
@@ -25,12 +25,14 @@ role:
   es: Diseño de credenciales y banner
 year: "2025"
 client: AAGOS
-cover: /projects/aagos-credencial.webp
+cover: /projects/Aagos.png
 coverAlt:
   en: AAGOS standing banner and event credential
   es: Banner de pie y credencial del evento de AAGOS
 gallery:
-  - /projects/aagos-credencial-2.webp
+  - /projects/credencial.png
+  - /projects/banner.png
+  - /projects/BACK DE PRENSA.png
 tags: [Print, Event, Healthcare]
 tools: [Illustrator, InDesign]
 accent: "#1c3a5e"
