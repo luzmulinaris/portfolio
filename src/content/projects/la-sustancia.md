@@ -24,7 +24,7 @@ description:
 role:
   en: Identity · Stationery · Posters · Merch · Social
   es: Identidad · Papelería · Afiches · Merch · Redes
-year: "2024"
+year: "2025"
 cover: /projects/invitacion avant premiere mockup.png
 coverAlt:
   en: Pink and yellow identity pieces for La Sustancia
