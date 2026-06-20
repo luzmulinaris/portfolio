@@ -30,8 +30,8 @@ coverAlt:
   en: Pink and yellow identity pieces for La Sustancia
   es: Piezas de identidad en rosa y amarillo de La Sustancia
 gallery:
-  - /projects/poster promocional mockup.png
   - /projects/afiches callejeros mockup.png
+  - /projects/poster promocional mockup.png
   - /projects/brochure mockup.png
   - /projects/brocjure mockup.png
   - /projects/carpeta a4 mockup.png
