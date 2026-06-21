@@ -25,15 +25,16 @@ role:
   es: Diseño de placas para redes
 year: "2025"
 client: AAGOS
-cover: /projects/aagos-redes.webp
+cover: /projects/aagos ig.png
 coverAlt:
-  en: AAGOS LinkedIn post mockups
-  es: Mockups de publicaciones de AAGOS en LinkedIn
+  en: AAGOS Instagram post mockup
+  es: Mockup de publicación de AAGOS en Instagram
 gallery:
-  - /projects/aagos-redes-2.webp
+  - /projects/aagos2.png
+  - /projects/aagos3.png
 tags: [Social, LinkedIn, Healthcare]
 tools: [Illustrator, Photoshop]
 accent: "#1c3a5e"
 featured: false
-order: 8
+order: 9
 ---

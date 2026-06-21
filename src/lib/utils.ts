@@ -28,5 +28,6 @@ export const categoryKey = {
   packaging: 'cat.packaging',
   social: 'cat.social',
   identity: 'cat.identity',
+  information: 'cat.information',
   other: 'cat.other',
 } as const;

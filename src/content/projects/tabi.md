@@ -34,5 +34,6 @@ tags: [Packaging, Label, Pattern]
 tools: [Illustrator]
 accent: "#2b4ea0"
 featured: false
+hidden: true
 order: 5
 ---

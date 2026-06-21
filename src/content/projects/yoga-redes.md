@@ -24,17 +24,18 @@ role:
   es: Diseño de placas para redes
 year: "2024"
 client: "@yogaensintesis"
-cover: /projects/yoga-redes.webp
+cover: /projects/yoga.png
 coverAlt:
   en: Yoga en Síntesis Instagram course pieces
   es: Placas de cursos de Yoga en Síntesis para Instagram
 gallery:
-  - /projects/yoga-redes-2.webp
+  - /projects/yoga1.png
+  - /projects/yoga2.png
 tags: [Social, Instagram]
 tools: [Illustrator, Photoshop]
 accent: "#2e8b57"
 featured: false
-order: 9
+order: 10
 links:
   - label: "@yogaensintesis"
     url: https://www.instagram.com/yogaensintesis

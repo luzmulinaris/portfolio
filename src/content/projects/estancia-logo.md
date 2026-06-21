@@ -34,5 +34,6 @@ tags: [Branding, Logo, Label]
 tools: [Illustrator]
 accent: "#6f7d54"
 featured: false
-order: 13
+hidden: true
+order: 14
 ---

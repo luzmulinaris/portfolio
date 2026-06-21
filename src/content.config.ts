@@ -12,7 +12,7 @@ const projects = defineCollection({
   schema: z.object({
     title: localized,
     /** Section in the original portfolio. */
-    category: z.enum(['editorial', 'packaging', 'social', 'identity', 'other']),
+    category: z.enum(['editorial', 'packaging', 'social', 'identity', 'information', 'other']),
     /** e.g. "University final project | El Gato y La Caja". */
     type: localized,
     /** One-line blurb shown on cards. */
@@ -30,6 +30,7 @@ const projects = defineCollection({
     tools: z.array(z.string()).default([]),
     accent: z.string().optional(),
     featured: z.boolean().default(false),
+    hidden: z.boolean().default(false),
     order: z.number().default(99),
     links: z
       .array(z.object({ label: z.string(), url: z.string().url() }))

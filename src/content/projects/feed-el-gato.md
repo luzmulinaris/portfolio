@@ -35,7 +35,7 @@ tags: [Social, Instagram, Editorial]
 tools: [Photoshop, Illustrator]
 accent: "#3a7d5c"
 featured: false
-order: 7
+order: 8
 links:
   - label: "@elgatoylacaja"
     url: https://www.instagram.com/elgatoylacaja

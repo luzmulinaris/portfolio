@@ -24,16 +24,16 @@ role:
   en: Identity · Institutional pieces · Posters · Merch · Social
   es: Identidad · Piezas institucionales · Afiches · Merch · Redes
 year: "2023"
-cover: /projects/museos-cordoba.webp
+cover: /projects/sobre.png
 coverAlt:
-  en: Identity pieces for the Córdoba museums network
-  es: Piezas de identidad de la red de Museos de Córdoba
+  en: Córdoba Museums envelope mockup
+  es: Mockup de sobre de Museos de Córdoba
 gallery:
-  - /projects/museos-cordoba-2.webp
-  - /projects/museos-cordoba-3.webp
+  - /projects/sobre 2.png
+  - /projects/tarj personal.png
 tags: [Identity, Culture, Wayfinding]
 tools: [Illustrator, InDesign]
 accent: "#b8341f"
 featured: false
-order: 11
+order: 12
 ---

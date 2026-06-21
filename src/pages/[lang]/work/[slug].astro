@@ -9,13 +9,14 @@ export const getStaticPaths = (async () => {
   const projects = (await getCollection('projects')).sort(
     (a, b) => a.data.order - b.data.order,
   );
+  const visibleProjects = projects.filter((project) => !project.data.hidden);
   const langs: Lang[] = ['en', 'es'];
   return langs.flatMap((lang) =>
-    projects.map((project, i) => ({
+    visibleProjects.map((project, i) => ({
       params: { lang, slug: project.id },
       props: {
         project,
-        next: projects[(i + 1) % projects.length]!,
+        next: visibleProjects[(i + 1) % visibleProjects.length]!,
       },
     })),
   );
@@ -26,7 +27,7 @@ const { project, next } = Astro.props;
 const t = useTranslations(lang);
 const d = project.data;
 const accent = d.accent ?? 'var(--color-pink)';
-const isAagosProject = project.id === 'aagos-credencial';
+const isInfographicProject = project.id === 'mi-vida-entre-dos-panes-infografia';
 
 const meta = [
   { label: t('project.role'), value: d.role[lang] },
@@ -139,7 +140,7 @@ const meta = [
       d.gallery.length > 0 && (
         <div class="container-edge mt-8 grid grid-cols-1 gap-6 pb-8 sm:grid-cols-2">
           {d.gallery.map((src, i) => (
-            <figure class={`overflow-hidden rounded-xl bg-cream-200 ${isAagosProject ? 'aspect-[3/2]' : ''} ${d.gallery.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}`} data-reveal>
+            <figure class={`overflow-hidden rounded-xl bg-cream-200 ${d.gallery.length % 2 === 1 && i === 0 ? 'sm:col-span-2' : ''}`} data-reveal>
               <img
                 src={withBase(src)}
                 alt={`${d.title[lang]} — ${i + 1}`}
@@ -147,7 +148,7 @@ const meta = [
                 height="1067"
                 loading="lazy"
                 decoding="async"
-                class={`block w-full ${isAagosProject ? 'h-full object-cover object-center' : 'h-auto object-contain'}`}
+                class={`block w-full ${isInfographicProject && i === 0 ? 'h-full object-cover object-center' : 'h-auto object-contain'}`}
               />
             </figure>
           ))}

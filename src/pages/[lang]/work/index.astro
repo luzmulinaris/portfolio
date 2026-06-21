@@ -17,22 +17,23 @@ const t = useTranslations(lang);
 const projects = (await getCollection('projects')).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const visibleProjects = projects.filter((project) => !project.data.hidden);
 
-const order = ['editorial', 'packaging', 'identity', 'social', 'other'] as const;
-const present = order.filter((c) => projects.some((p) => p.data.category === c));
+const order = ['editorial', 'packaging', 'identity', 'information', 'social', 'other'] as const;
+const present = order.filter((c) => visibleProjects.some((p) => p.data.category === c));
 const filters = [
-  { key: 'all', label: t('work.all'), count: projects.length },
+  { key: 'all', label: t('work.all'), count: visibleProjects.length },
   ...present.map((c) => ({
     key: c,
     label: t(categoryKey[c]),
-    count: projects.filter((p) => p.data.category === c).length,
+    count: visibleProjects.filter((p) => p.data.category === c).length,
   })),
 ];
 ---
 
 <BaseLayout lang={lang} title={t('work.title')} description={t('work.intro')}>
   <section class="container-edge pt-[calc(var(--nav-h)+3rem)]">
-    <p class="eyebrow text-pink-ink">{String(projects.length).padStart(2, '0')} {t('work.count')}</p>
+    <p class="eyebrow text-pink-ink">{String(visibleProjects.length).padStart(2, '0')} {t('work.count')}</p>
     <h1
       class="mt-4 font-display uppercase leading-[0.85] tracking-tight text-ink"
       style="font-size: var(--text-mega)"
@@ -68,7 +69,7 @@ const filters = [
       class="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3"
       data-grid
     >
-      {projects.map((project, i) => <ProjectCard project={project} lang={lang} index={i} />)}
+      {visibleProjects.map((project, i) => <ProjectCard project={project} lang={lang} index={i} />)}
     </div>
   </section>
 </BaseLayout>

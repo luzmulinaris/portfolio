@@ -37,7 +37,7 @@ export const ui = {
     'home.aboutLink': 'More about me',
 
     'work.title': 'Work',
-    'work.intro': 'Projects & explorations across editorial, packaging and identity.',
+    'work.intro': 'Projects & explorations across editorial, packaging, identity and information design.',
     'work.all': 'All',
     'work.count': 'projects',
 
@@ -82,6 +82,7 @@ export const ui = {
     'cat.packaging': 'Packaging',
     'cat.social': 'Social',
     'cat.identity': 'Visual Identity',
+    'cat.information': 'Information Design',
     'cat.other': 'Other',
   },
 
@@ -111,7 +112,7 @@ export const ui = {
     'home.aboutLink': 'Más sobre mí',
 
     'work.title': 'Trabajos',
-    'work.intro': 'Proyectos y exploraciones en editorial, packaging e identidad.',
+    'work.intro': 'Proyectos y exploraciones en editorial, packaging, identidad y diseño de información.',
     'work.all': 'Todos',
     'work.count': 'proyectos',
 
@@ -156,6 +157,7 @@ export const ui = {
     'cat.packaging': 'Packaging',
     'cat.social': 'Redes',
     'cat.identity': 'Identidad Visual',
+    'cat.information': 'Diseño de información',
     'cat.other': 'Otros',
   },
 } as const;
