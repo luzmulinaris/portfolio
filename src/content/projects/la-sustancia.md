@@ -7,20 +7,17 @@ type:
   en: University final project
   es: Proyecto final universitario
 summary:
-  en: A bold visual identity for the film "La Sustancia".
-  es: Identidad visual contundente para la película "La Sustancia".
+  en: A visual identity for the film "La Sustancia".
+  es: Identidad visual para la película "La Sustancia".
 description:
   en: >-
     Visual identity for the film "La Sustancia". The system spans an
     isologotype, institutional stationery, promotional pieces, out-of-home
-    posters, merchandising and Instagram feed plates — all built around a loud
-    pink-and-yellow palette that mirrors the film's unsettling energy.
+    posters, merchandising and Instagram feed plates.
   es: >-
     Identidad visual para la película "La Sustancia". El sistema abarca el diseño
     de isologotipo, piezas de papelería institucional, piezas promocionales,
-    afiches de vía pública, merchandising y placas para feed de Instagram — todo
-    construido sobre una paleta estridente de rosa y amarillo que refleja la
-    energía inquietante del film.
+    afiches de vía pública, merchandising y placas para feed de Instagram.
 role:
   en: Identity · Stationery · Posters · Merch · Social
   es: Identidad · Papelería · Afiches · Merch · Redes
