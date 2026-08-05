@@ -32,7 +32,7 @@ export interface EducationItem {
 
 export interface SkillGroup {
   label: L10n;
-  items: string[];
+  items: (string | L10n)[];
 }
 
 export interface CourseItem {
@@ -59,8 +59,8 @@ export const about = {
       es: 'Me llamo Luz, actualmente estoy cursando el cuarto año de la Licenciatura en Diseño Gráfico en la Universidad Blas Pascal. Tengo 22 años y vivo en Córdoba Capital.',
     },
     {
-      en: 'I’m an active, organized and responsible person. I like to keep growing and learning new things — across editorial, packaging, identity and motion.',
-      es: 'Soy una persona activa, organizada y responsable. Me gusta estar en constante crecimiento y aprender cosas nuevas — en editorial, packaging, identidad y motion.',
+      en: 'I’m an active, organized and responsible person. I like to keep growing and learning new things.',
+      es: 'Soy una persona activa, organizada y responsable. Me gusta estar en constante crecimiento y aprender cosas nuevas.',
     },
   ] satisfies L10n[],
 };
@@ -69,7 +69,7 @@ export const experience: ExperienceItem[] = [
   {
     org: 'FiAD — Foro de Innovación para el Aprendizaje y el Desarrollo',
     role: { en: 'Graphic Designer', es: 'Diseñadora gráfica' },
-    kind: { en: 'In-house', es: 'En relación de dependencia' },
+    kind: { en: 'Freelance', es: 'Freelance' },
     period: { en: 'Apr 2025 — Present', es: 'Abr 2025 — Actualidad' },
     ongoing: true,
     summary: {
@@ -82,6 +82,23 @@ export const experience: ExperienceItem[] = [
       { en: 'Stationery', es: 'Papelería' },
       { en: 'Web design', es: 'Diseño web' },
       { en: 'Mailing', es: 'Mailing' },
+    ],
+  },
+  {
+    org: 'AAGOS — Asociación Argentina de Gestión Operativa en Salud',
+    role: { en: 'Graphic Designer', es: 'Diseñadora gráfica' },
+    kind: { en: 'Freelance', es: 'Freelance' },
+    period: { en: 'Mar 2026 — Present', es: 'Mar 2026 — Actualidad' },
+    ongoing: true,
+    summary: {
+      en: 'Visual identity and an informative pieces system for the 3rd National Conference on Operational Health Management — social pieces, credentials and banners.',
+      es: 'Identidad visual y un sistema de piezas informativas para la 3ra Jornada Nacional de Gestión Operativa en Salud — placas para redes, credenciales y banners.',
+    },
+    tasks: [
+      { en: 'Identity', es: 'Identidad' },
+      { en: 'Social pieces', es: 'Placas para redes' },
+      { en: 'Credentials', es: 'Credenciales' },
+      { en: 'Banners', es: 'Banners' },
     ],
   },
   {
@@ -168,8 +185,14 @@ export const skills: SkillGroup[] = [
   {
     label: { en: 'Disciplines', es: 'Disciplinas' },
     items: [
-      'Editorial', 'Packaging', 'Visual Identity', 'Typography',
-      'Illustration', 'Social / Digital', 'Motion', 'Print production',
+      { en: 'Editorial', es: 'Editorial' },
+      { en: 'Packaging', es: 'Packaging' },
+      { en: 'Visual Identity', es: 'Identidad visual' },
+      { en: 'Typography', es: 'Tipografía' },
+      { en: 'Illustration', es: 'Ilustración' },
+      { en: 'Social / Digital', es: 'Redes / Digital' },
+      { en: 'Motion', es: 'Animación' },
+      { en: 'Print production', es: 'Preparación para imprenta' },
     ],
   },
   {

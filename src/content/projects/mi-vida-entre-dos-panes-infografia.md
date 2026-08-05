@@ -22,7 +22,7 @@ description:
 role:
   en: Information design
   es: Diseño de información
-year: "2025"
+year: "2026"
 cover: /projects/mockup infografia.png
 coverAlt:
   en: Infographic mockup for Mi vida entre dos panes
@@ -34,5 +34,5 @@ tags: [Information design, Infographic, Data visualization]
 tools: [Illustrator, InDesign]
 accent: "#6b5b4b"
 featured: false
-order: 7
+order: 1
 ---

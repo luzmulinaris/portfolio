@@ -40,7 +40,7 @@ const capabilities = skills[0]!.items; // disciplines
         {
           capabilities.map((c) => (
             <li class="mono rounded-full border border-line px-3 py-1 text-xs text-ink-700">
-              {c}
+              {typeof c === 'string' ? c : c[lang]}
             </li>
           ))
         }

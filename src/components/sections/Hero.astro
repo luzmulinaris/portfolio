@@ -12,26 +12,26 @@ const t = useTranslations(lang);
 const leadParts: Record<Lang, LeadPart[]> = {
   en: [
     { text: 'I design' },
-    { text: 'editorial systems,', mark: true },
-    { text: 'packaging', mark: true },
+    { text: 'editorial pieces,', mark: true },
+    { text: 'digital pieces,', mark: true },
+    { text: 'visual identity', mark: true },
     { text: 'and' },
-    { text: 'visual identities', mark: true },
-    { text: '— turning ideas into printed and digital pieces with care for type, image and detail.' },
+    { text: 'information design', mark: true },
   ],
   es: [
     { text: 'Diseño' },
-    { text: 'sistemas editoriales,', mark: true },
-    { text: 'packaging', mark: true },
-    { text: 'e' },
-    { text: 'identidades visuales', mark: true },
-    { text: '— convierto ideas en piezas impresas y digitales cuidando la tipografía, la imagen y el detalle.' },
+    { text: 'piezas editoriales,', mark: true },
+    { text: 'piezas digitales,', mark: true },
+    { text: 'identidad visual', mark: true },
+    { text: 'y' },
+    { text: 'diseño de información', mark: true },
   ],
 };
 
 const marqueeItems =
   lang === 'es'
-    ? ['Editorial', 'Packaging', 'Identidad Visual', 'Redes', 'Tipografía', 'Ilustración']
-    : ['Editorial', 'Packaging', 'Visual Identity', 'Social', 'Typography', 'Illustration'];
+    ? ['Editorial', 'Packaging', 'Identidad Visual', 'Redes', 'Tipografía']
+    : ['Editorial', 'Packaging', 'Visual Identity', 'Social', 'Typography'];
 ---
 
 <section class="relative flex min-h-[100svh] flex-col justify-between pt-[var(--nav-h)]">

@@ -27,7 +27,7 @@ export const ui = {
     'hero.location': 'Córdoba, Argentina',
     'hero.lead':
       'I design editorial systems, packaging and visual identities — turning ideas into printed and digital pieces with care for type, image and detail.',
-    'hero.available': 'Available for freelance',
+    'hero.available': 'Available for work',
     'hero.scroll': 'Scroll',
 
     'home.selectedWork': 'Selected Work',
@@ -101,8 +101,8 @@ export const ui = {
     'hero.role': 'Diseñadora Gráfica',
     'hero.location': 'Córdoba, Argentina',
     'hero.lead':
-      'Diseño sistemas editoriales, packaging e identidades visuales — convierto ideas en piezas impresas y digitales cuidando la tipografía, la imagen y el detalle.',
-    'hero.available': 'Disponible para freelance',
+      'Diseño de piezas editoriales, piezas digitales, identidad visual y diseño de información',
+    'hero.available': 'Disponible para trabajar',
     'hero.scroll': 'Desliza',
 
     'home.selectedWork': 'Trabajos Seleccionados',
